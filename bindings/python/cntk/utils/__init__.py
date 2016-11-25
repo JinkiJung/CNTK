@@ -541,7 +541,7 @@ def sanitize_batch(var, batch, seq_starts=None, dtype=None, device=None):
         device = use_default_device()
 
     if np.isscalar(batch):
-        ndav = create_NDArrayView_from_NumPy(np.asarray(batch, dtype), device)
+        ndav = _create_NDArrayView_from_NumPy(np.asarray(batch, dtype), device)
         return Value(data=ndav)
 
     # batch is now either a dense input that requires a mask, or it is sparse
@@ -844,6 +844,10 @@ def _ones_like(batch, precision):
     Args:
         batch (list of NumPy arrays): a list of sequences, which are NumPy arrays
     '''
+
+    if isinstance(batch, np.ndarray) and batch.shape == ():
+        return 1.0
+
     return [np.ones_like(sample, dtype=sanitize_precision(precision)) for sample in batch]
 
 
