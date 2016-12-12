@@ -243,6 +243,7 @@ namespace CNTK
         CNTK_API void ForceSynchronousCUDAKernelExecutions();
 
         CNTK_API void ForceDeterministicAlgorithms();
+        CNTK_API bool ShouldForceDeterministicAlgorithms();
 
         CNTK_API void SetFixedRandomSeed(unsigned long fixedRandomSeed);
 
@@ -255,5 +256,10 @@ namespace CNTK
         CNTK_API bool AreEqual(const ::CNTK::NDArrayView& view1, const ::CNTK::NDArrayView& view2, double relativeTolerance = 0.0, double absoluteTolerance = 0.0);
 
         class VariableResolver;
+
+        ///
+        /// Returns true if num CPU Threads was set.
+        ///
+        bool MaxNumCPUThreadsSet();
     }
 }
